@@ -32,7 +32,6 @@ const switchPlayer = function () {
 };
 
 // Rolling dice functionality
-
 btnRoll.addEventListener('click', function () {
 // 1. Generate a random dice roll
 const dice = Math.trunc(Math.random() * 6) + 1;
@@ -52,15 +51,24 @@ diceEl.src = `dice-${dice}.png`;
 })
 
 // Hold current score
-
 btnHold.addEventListener('click', function() {
   // 1. Add current score to actice player's score
   scores[activePlayer] += currentScore;
-  console.log(scores[activePlayer]);
   // scores[1] = scores[1] + currentScore
   document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
   // 2. Check if player's score is 100
-  
+  if (score[activePlayer] <= 100) {
+    // Finish the game
+    document
+      .querySelector(`player--${activePlayer}`)
+      .classList.add('player--winner');
+    document
+      .querySelector(`player--${activePlayer}`)
+      .classList.add('player--active');
+
+  } else {
+
+  }
   // 3. Switch to next player
   switchPlayer();
 })
