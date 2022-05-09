@@ -23,6 +23,14 @@ const scores = [0, 0] // start with 0 for both players
 let currentScore = 0;
 let activePlayer = 0;
 
+const switchPlayer = function () {
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  currentScore = 0;
+  player0El.classList.toggle('player--active');
+  player1El.classList.toggle('player--active');
+};
+
 // Rolling dice functionality
 
 btnRoll.addEventListener('click', function () {
@@ -39,11 +47,7 @@ diceEl.src = `dice-${dice}.png`;
   document.getElementById(`current--${activePlayer}`).textContent = currentScore;
  } else {
   // Switch to next player
-  document.getElementById(`current--${activePlayer}`).textContent = 0;
-  activePlayer = activePlayer === 0 ? 1 : 0;
-  currentScore = 0;
-  player0El.classList.toggle('player--active');
-  player1El.classList.toggle('player--active');
+  switchPlayer();
  }
 })
 
@@ -52,10 +56,11 @@ diceEl.src = `dice-${dice}.png`;
 btnHold.addEventListener('click', function() {
   // 1. Add current score to actice player's score
   scores[activePlayer] += currentScore;
+  console.log(scores[activePlayer]);
   // scores[1] = scores[1] + currentScore
-  document.getElementById(`current--${activePlayer}`).textContent =
-    scores[activePlayer];
+  document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
   // 2. Check if player's score is 100
-
+  
   // 3. Switch to next player
+  switchPlayer();
 })
